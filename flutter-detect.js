@@ -6,15 +6,14 @@
 *     Flutter Modules Enumerator - Frida Script              *
 *                                                            *
 *  No estudo de segurança Android, criei este script para    *
-*  Frida que facilita a enumeração e análise das atualizações*
-*  Flutter em aplicativos mobile.                            *
+*  Frida que facilita a enumeração e detecção da utilização  *
+*  do Flutter em aplicativos mobile.                         *
 *                                                            *
-*  Ele lista todas as bibliotecas carregadas contendo        *
-*  'flutter' no nome, mostrando também o endereço base e a   *
-*  memória utilizada por cada módulo.                        *
+*  Ele detecta a utilização de Flutter e lista todas as      *
+*  bibliotecas carregadas, mostrando também o endereço base  *
+*  da amemória utilizada por cada módulo.                    *
 *                                                            *
-*  Útil para pesquisadores, pentesters e desenvolvedores     *
-*  que querem entender o uso do Flutter em apps Android.     *
+*  Útil para pesquisadores, pentesters e desenvolvedores.    *
 *                                                            *
 *  By Bl4dsc4n / flutter-detect.js  v.0.1                    *
 **************************************************************
