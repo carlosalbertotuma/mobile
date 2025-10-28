@@ -62,7 +62,7 @@ Verifique:
 - frida --version
 - frida-ps --version
 
-
+🔹Obs: o android precisa ter permissão root.
 
 🔹 Como checar rapidamente (exemplos)
 - & "$env:USERPROFILE\AppData\Local\Android\Sdk\platform-tools\adb.exe" version
