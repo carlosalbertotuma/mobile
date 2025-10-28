@@ -2,7 +2,12 @@
 
 O DroidPenKit é um script em PowerShell desenvolvido para automatizar tarefas comuns em testes de segurança mobile em ambientes Android. Ele integra o uso de ADB, Emulador Android e Frida, oferecendo uma interface interativa por linha de comando para facilitar operações de análise, injeção de scripts, instalação de APKs, gerenciamento de pacotes e muito mais.
 
-🔹 Principais Recursos:
+
+<img width="741" height="1146" alt="image" src="https://github.com/user-attachments/assets/a43fdd0e-cad0-465e-87d4-c10225f3bab2" />
+
+
+
+# Principais Recursos:
 
 - Automação completa de comandos ADB
 
