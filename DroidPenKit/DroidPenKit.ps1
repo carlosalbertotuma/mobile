@@ -3,167 +3,172 @@ param(
    [int]$p1
 )
 
+# Caminhos (altere se necessário)
+$ADB = "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe"
+$EMULATOR = "$env:LOCALAPPDATA\Android\Sdk\emulator\emulator.exe"
+
+
 function Shell{
    echo "Exemplo: ps # Listar Processos"
    $comando = Read-Host "Digite o comando: ou aperte ENTER entrar na shell"
    $opcao = "shell", "$comando"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe $opcao 
+   & $ADB $opcao 
 }
 
 function listar{
    Write-Host "Listar Devices"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
 }
 
 function kill{
    Write-Host "Finalizar processo ADB"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe kill-server
+   & $ADB kill-server
 }
 
 function start{
    Write-Host "Iniciando o Processo ADB"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe start-server
+   & $ADB start-server
 }
 
 function Monitor{
    Write-Host "Iniciar Monitor de Crash"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell am monitor
+   & $ADB shell am monitor
 }
 
 function download{
    Write-Host "Copiar Arquivo para dentro do android"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do arquivo:"
    $destino = Read-Host "Digite o local para copia ex: /sdcard/arquivo:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device push $local $destino
+   & $ADB -s $device push $local $destino
    
 }
 
 function upload{
    Write-Host "Baixar arquivo do Android"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do arquivo: Ex: /data/local/arquivo.txt"
-   ~\AppData\Local\Android\Sdk\platform-tools\db.exe -s $device pull $local 
+   & $ADB -s $device pull $local 
 }
 
 function install{
    Write-Host "Instalar APK no device"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do APK: ex: c:\teste.apk"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device install $local
+   & $ADB -s $device install $local
 }
 
 function install1{
    Write-Host "Reinstala mantendo os dados"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do APK: ex: c:\teste.apk"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device  install -r $local
+   & $ADB -s $device  install -r $local
 }
 
 function install2{
    Write-Host "Permite downgrade"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do APK: ex: c:\teste.apk"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device install -d $local
+   & $ADB -s $device install -d $local
 }
 
 function install3{
    Write-Host "Concede todas as permissões"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do APK: ex: c:\teste.apk"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device install -g $local
+   & $ADB -s $device install -g $local
 }
 
 function install4{
    Write-Host "Instalação instantânea"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do APK: ex: c:\teste.apk"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device install --instant $local
+   & $ADB -s $device install --instant $local
 }
 
 function remove{
    Write-Host "Remover APK do device"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o local do APK: ex: c:\teste.apk"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device uninstall $local 
+   & $ADB -s $device uninstall $local 
 
 }
 
 function remove1{
    Write-Host "Remover Pacote do device"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o nome do pacote: ex: com.paquete"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device uninstall $local 
+   & $ADB -s $device uninstall $local 
 
 }
 
 function remove2{
    Write-Host "Desinstala, mas mantém os dados"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe devices
+   & $ADB devices
    $device = Read-Host "Escolha o Device:"
    $local = Read-Host "Digite o nome do pacote: ex: com.paquete"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe -s $device uninstall -k $local 
+   & $ADB -s $device uninstall -k $local 
 
 }
 
 
 function list-devices{
    Write-Host "List Virtual devices"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -list-avds  
+   & $EMULATOR -list-avds  
 }
 
 function emular-avd{
    Write-Host "Iniciar Virtual device"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -list-avds
+   & $EMULATOR -list-avds
    $device = Read-Host "Escolha o Device: Ex: Pixel_3a_API_33_x86_64"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -avd $device
+   & $EMULATOR -avd $device
 }
 
 function emular-avd-write{
    Write-Host ""Iniciar Virtual device
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -list-avds
+   & $EMULATOR -list-avds
    $device = Read-Host "Escolha o Device: Ex: Pixel_3a_API_33_x86_64"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -avd $device -writable-system 
+   & $EMULATOR -avd $device -writable-system 
 }
 
 function emulaor-adv-write-nocache{
    Write-Host "Iniciar Virtual device"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -list-avds
+   & $EMULATOR -list-avds
    $device = Read-Host "Escolha o Device: Ex: Pixel_3a_API_33_x86_64"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -avd $device -writable-system -no-snapshot-load
+   & $EMULATOR -avd $device -writable-system -no-snapshot-load
 }
 
 function emulaor-adv-wipe-data{
    Write-Host "Iniciar Virtual device"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -list-avds
+   & $EMULATOR -list-avds
    $device = Read-Host "Escolha o Device: Ex: Pixel_3a_API_33_x86_64"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -avd $device -wipe-data
+   & $EMULATOR -avd $device -wipe-data
 }
 
 function activis{
    Write-Host "Ininicar Activi"
    $pacote = Read-Host "Digite o pacote:"
    $acao = Read-Host "Qual acao"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell am start -n $pacote -a $acao
+   & $ADB shell am start -n $pacote -a $acao
 }
 
 function proxy{
    Write-Host "Emular com proxy"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -list-avds
+   & $EMULATOR -list-avds
    $device = Read-Host "Escolha o Device: Ex: Pixel_3a_API_33_x86_64"
    $ip = Read-Host "Digite o ip:"
    $porta = Read-Host "Digite a porta:"
    $dns = Read-Host "Digite o ip dns:"
-   ~\AppData\Local\Android\Sdk\emulator\emulator.exe -avd $device -http-proxy $ip":"$porta -dns-server $dns 
+   & $EMULATOR -avd $device -http-proxy $ip":"$porta -dns-server $dns 
 }
 
 function processes{
@@ -194,146 +199,146 @@ function inject{
 
 function iptable{
    Write-Host "Show IPTABLES"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell su -c iptables -L
+   & $ADB shell su -c iptables -L
 }
 
 function list-packages{
    Write-Host "List Packages"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
 }
 
 function list-packages-s{
    Write-Host "List Packges System"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages -s
+   & $ADB shell pm list packages -s
 }
 
 function list-packages-3{
    Write-Host "List Packges 3º"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages -3
+   & $ADB shell pm list packages -3
 }
 
 function frida-exec{
    Write-Host "Iniciando Servidor Frida"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell su -c "nohup /data/local/tmp/frida-server &"  
+   & $ADB shell su -c "nohup /data/local/tmp/frida-server &"  
    
 }
 
 function caminho-pacote{
    Write-Host "Mostrar Caminho do APK"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm path $pacote
+   & $ADB shell pm path $pacote
    
 }
 
 function clean-pacote{
    Write-Host "Limpar dados de um aplicativo"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm clean $pacote
+   & $ADB shell pm clean $pacote
  
 }
 
 function disable-pacote{
    Write-Host "Desativar pacote"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm disable $pacote
+   & $ADB shell pm disable $pacote
  
 }
 
 function enable-pacote{
    Write-Host "Reativar pacote"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm enable $pacote
+   & $ADB shell pm enable $pacote
  
 }
 
 function hide-pacote{
    Write-Host "Esconde o pacote"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm hide $pacote
+   & $ADB shell pm hide $pacote
  
 }
 
 function unhide-pacote{
    Write-Host "Exibição de pacote oculto"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm unhide $pacote
+   & $ADB shell pm unhide $pacote
  
 }
 
 function grant-pacote{
    Write-Host "Concede permissao"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm grant $pacote
+   & $ADB shell pm grant $pacote
  
 }
 
 function revoke-pacote{
    Write-Host "Revogar permissao"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm list packages 
+   & $ADB shell pm list packages 
    $pacote = Read-Host "Qual nome do pacote:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell pm revoke $pacote
+   & $ADB shell pm revoke $pacote
  
 }
 
 
 function contatos{
    Write-Host "Ver contatos"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell content query --uri content://com.android.contacts/data 
+   & $ADB shell content query --uri content://com.android.contacts/data 
 }
 
 function logcat{
    Write-Host "Iniciando Logcat"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell su -c "logcat"  
+   & $ADB shell su -c "logcat"  
    
 }
 
 function logcat-grep{
    Write-Host "Iniciando Logcat com Grep"
    $grep = Read-Host "Digite a palavra de pesquisa:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell su -c "logcat | grep -E $grep"  
+   & $ADB shell su -c "logcat | grep -E $grep"  
    
 }
 
 function access-url{
    $pacote = Read-Host "Digite a URL para acessar:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell am start -a android.intent.action.VIEW  $pacote
+   & $ADB shell am start -a android.intent.action.VIEW  $pacote
  
 }
 
 function call-number{
    $pacote = Read-Host "Ligar para o numero:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell am start -a android.intent.action.CALL -d tel:$pacote
+   & $ADB shell am start -a android.intent.action.CALL -d tel:$pacote
  
 }
 
 function geo{
    $pacote = Read-Host "Pesquisar no Geolocalização:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell am start -a android.intent.action.VIEW geo:0,0?q=$pacote
+   & $ADB shell am start -a android.intent.action.VIEW geo:0,0?q=$pacote
  
 }
 
 function limpar-log-cat{
    Write-Host "Limpando o Logcat"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell logcat -c
+   & $ADB shell logcat -c
  
 }
 
 function processos{
    Write-Host "Show Processos"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell ps -A 
+   & $ADB shell ps -A 
  
 }
 
 function PID-log-cat{
    $PIDs = Read-Host "Digite o PID para filtro:"
-   ~\AppData\Local\Android\Sdk\platform-tools\adb.exe shell logcat --pid=$PIDs
+   & $ADB shell logcat --pid=$PIDs
  
 }
 
